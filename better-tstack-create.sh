@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+rm -rf ./upstream/ && \
 pnpm create better-t-stack@3.6.5 2025-12-stack \
   --frontend tanstack-start \
   --backend hono \
@@ -16,7 +16,6 @@ pnpm create better-t-stack@3.6.5 2025-12-stack \
   --server-deploy alchemy \
   --package-manager pnpm \
   --git \
-  --install &&
-
-mv 2025-12-stack/ upstream/ &&
+  --install && \
+mv 2025-12-stack/ upstream/ && \
 (cd upstream && pnpm run check && git commit -am "format files")
