@@ -7,7 +7,7 @@ Patches for [better-t-stack-nov-28-2](../better-t-stack-nov-28-2/).
 The base project was scaffolded with:
 
 ```bash
-pnpm create better-t-stack@3.6.5 upstream \
+pnpm create better-t-stack@3.6.5 2025-12-stack \
   --frontend tanstack-start \
   --backend hono \
   --runtime workers \
