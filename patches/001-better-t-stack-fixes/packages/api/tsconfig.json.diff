@@ -1,0 +1,12 @@
+diff --git a/packages/api/tsconfig.json b/packages/api/tsconfig.json
+index e9aa9f1..33e3ac3 100644
+--- a/packages/api/tsconfig.json
++++ b/packages/api/tsconfig.json
+@@ -6,5 +6,6 @@
+ 		"sourceMap": true,
+ 		"outDir": "dist",
+ 		"composite": true
+-	}
++	},
++	"include": ["src", "env.d.ts"]
+ }

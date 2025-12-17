@@ -1,0 +1,110 @@
+diff --git a/alchemy.run.ts b/alchemy.run.ts
+index 573f75b..5b8c80c 100644
+--- a/alchemy.run.ts
++++ b/alchemy.run.ts
+@@ -1,43 +1,92 @@
+ import alchemy from "alchemy";
+ import { TanStackStart, Worker } from "alchemy/cloudflare";
++import { GitHubComment } from "alchemy/github";
++import { CloudflareStateStore } from "alchemy/state";
+ import { config } from "dotenv";
+ 
+ config({ path: "./.env" });
+ config({ path: "./apps/web/.env" });
+ config({ path: "./apps/server/.env" });
+ 
+-const app = await alchemy("2025-12-stack");
++const app = await alchemy("2025-12-stack", {
++	stateStore: (scope) => new CloudflareStateStore(scope),
++});
+ 
+-export const web = await TanStackStart("web", {
+-	cwd: "apps/web",
++// Cloudflare Workers tags have a 25 character limit
++const version = app.stage === "prod" ? undefined : app.stage.slice(0, 25);
++
++const serverDevPort = 3000;
++const serverDevUrl = process.env.DEV_HOST
++	? `http://${process.env.DEV_HOST}:3000`
++	: undefined;
++
++export const server = await Worker("server", {
++	// name defaults to ${app}-${stage}-${id} otherwise which creates a lot of workers!
++	name: "2025-12-stack-server",
++	// enable workers.dev urls
++	url: true,
++	// preview deploy urls
++	version,
++	cwd: "apps/server",
++	entrypoint: "src/index.ts",
++	compatibility: "node",
+ 	bindings: {
+-		VITE_SERVER_URL: process.env.VITE_SERVER_URL || "",
+ 		DATABASE_URL: alchemy.secret(process.env.DATABASE_URL),
+ 		CORS_ORIGIN: process.env.CORS_ORIGIN || "",
+ 		BETTER_AUTH_SECRET: alchemy.secret(process.env.BETTER_AUTH_SECRET),
+-		BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || "",
+ 	},
+ 	dev: {
+-		command: "pnpm run dev",
++		port: serverDevPort,
+ 	},
+ });
+ 
+-export const server = await Worker("server", {
+-	cwd: "apps/server",
+-	entrypoint: "src/index.ts",
+-	compatibility: "node",
++export const web = await TanStackStart("web", {
++	// name defaults to ${app}-${stage}-${id} otherwise which creates a lot of workers!
++	name: "2025-12-stack-web",
++	// enable workers.dev urls
++	url: true,
++	// preview deploy urls
++	version,
++	cwd: "apps/web",
+ 	bindings: {
++		VITE_SERVER_URL: serverDevUrl ?? server.url ?? "",
++		SERVER: server,
+ 		DATABASE_URL: alchemy.secret(process.env.DATABASE_URL),
+ 		CORS_ORIGIN: process.env.CORS_ORIGIN || "",
+ 		BETTER_AUTH_SECRET: alchemy.secret(process.env.BETTER_AUTH_SECRET),
+-		BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || "",
+ 	},
+ 	dev: {
+-		port: 3000,
++		command: "pnpm run dev",
+ 	},
+ });
+ 
+ console.log(`Web    -> ${web.url}`);
+-console.log(`Server -> ${server.url}`);
++console.log(`Server -> ${serverDevUrl ?? server.url}`);
++
++if (process.env.PULL_REQUEST) {
++	const [owner = "", repository = ""] = (
++		process.env.GITHUB_REPOSITORY ?? ""
++	).split("/");
++	const neonBranchId = process.env.NEON_BRANCH_ID;
++	await GitHubComment("preview-comment", {
++		owner,
++		repository,
++		issueNumber: Number(process.env.PULL_REQUEST),
++		body: `## Preview Deployed
++
++Your changes have been deployed to a preview environment:
++
++| Service | URL |
++|---------|-----|
++| Web | ${web.url} |
++| Server | ${server.url} |
++${neonBranchId ? `| Database | Neon branch: \`${neonBranchId}\` |` : ""}
++
++Built from commit ${process.env.GITHUB_SHA?.slice(0, 7)}
++
++---
++<sub>This comment updates automatically with each push.</sub>`,
++	});
++}
+ 
+ await app.finalize();

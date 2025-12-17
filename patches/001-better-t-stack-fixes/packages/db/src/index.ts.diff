@@ -1,0 +1,16 @@
+diff --git a/packages/db/src/index.ts b/packages/db/src/index.ts
+index eb29d7d..072174a 100644
+--- a/packages/db/src/index.ts
++++ b/packages/db/src/index.ts
+@@ -1,4 +1,10 @@
+ import { env } from "cloudflare:workers";
+ import { drizzle } from "drizzle-orm/node-postgres";
++import { Pool } from "pg";
+ 
+-export const db = drizzle(env.DATABASE_URL || "");
++const pool = new Pool({
++	connectionString: env.DATABASE_URL,
++	maxUses: 1,
++});
++
++export const db = drizzle({ client: pool });

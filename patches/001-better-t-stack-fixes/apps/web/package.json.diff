@@ -1,0 +1,13 @@
+diff --git a/apps/web/package.json b/apps/web/package.json
+index 2bdfb42..c20f7ac 100644
+--- a/apps/web/package.json
++++ b/apps/web/package.json
+@@ -49,6 +49,7 @@
+ 		"@tanstack/react-query-devtools": "^5.85.5",
+ 		"@2025-12-stack/config": "workspace:*",
+ 		"alchemy": "catalog:",
+-		"@cloudflare/vite-plugin": "^1.13.8"
++		"@cloudflare/vite-plugin": "^1.13.8",
++		"@cloudflare/workers-types": "^4.20250822.0"
+ 	}
+ }

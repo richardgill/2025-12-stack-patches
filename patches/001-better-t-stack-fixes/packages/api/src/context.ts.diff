@@ -1,0 +1,27 @@
+diff --git a/packages/api/src/context.ts b/packages/api/src/context.ts
+index d7922a4..0c060f6 100644
+--- a/packages/api/src/context.ts
++++ b/packages/api/src/context.ts
+@@ -1,17 +1,19 @@
+-import { auth } from "@2025-12-stack/auth";
++import { createAuth } from "@2025-12-stack/auth";
+ import type { Context as HonoContext } from "hono";
+ 
+ export type CreateContextOptions = {
+ 	context: HonoContext;
+ };
+ 
+-export async function createContext({ context }: CreateContextOptions) {
++export const createContext = async ({ context }: CreateContextOptions) => {
++	const url = new URL(context.req.raw.url);
++	const auth = createAuth(url.origin);
+ 	const session = await auth.api.getSession({
+ 		headers: context.req.raw.headers,
+ 	});
+ 	return {
+ 		session,
+ 	};
+-}
++};
+ 
+ export type Context = Awaited<ReturnType<typeof createContext>>;

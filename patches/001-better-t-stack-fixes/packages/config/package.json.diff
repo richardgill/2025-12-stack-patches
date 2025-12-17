@@ -1,0 +1,15 @@
+diff --git a/packages/config/package.json b/packages/config/package.json
+index 372ed30..ac8c0de 100644
+--- a/packages/config/package.json
++++ b/packages/config/package.json
+@@ -1,5 +1,9 @@
+ {
+ 	"name": "@2025-12-stack/config",
+ 	"version": "0.0.0",
+-	"private": true
++	"private": true,
++	"type": "module",
++	"exports": {
++		"./tsconfig.base.json": "./tsconfig.base.json"
++	}
+ }

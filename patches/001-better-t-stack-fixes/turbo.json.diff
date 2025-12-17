@@ -1,0 +1,13 @@
+diff --git a/turbo.json b/turbo.json
+index 4f5f4ca..6f7e461 100644
+--- a/turbo.json
++++ b/turbo.json
+@@ -27,7 +27,7 @@
+ 		},
+ 		"db:migrate": {
+ 			"cache": false,
+-			"persistent": true
++			"env": ["DATABASE_URL"]
+ 		},
+ 		"db:generate": {
+ 			"cache": false,

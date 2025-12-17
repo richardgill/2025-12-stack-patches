@@ -1,0 +1,12 @@
+diff --git a/packages/auth/tsconfig.json b/packages/auth/tsconfig.json
+index e9aa9f1..33e3ac3 100644
+--- a/packages/auth/tsconfig.json
++++ b/packages/auth/tsconfig.json
+@@ -6,5 +6,6 @@
+ 		"sourceMap": true,
+ 		"outDir": "dist",
+ 		"composite": true
+-	}
++	},
++	"include": ["src", "env.d.ts"]
+ }

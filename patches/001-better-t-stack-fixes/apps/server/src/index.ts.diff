@@ -1,0 +1,65 @@
+diff --git a/apps/server/src/index.ts b/apps/server/src/index.ts
+index 339c9d3..bffe62f 100644
+--- a/apps/server/src/index.ts
++++ b/apps/server/src/index.ts
+@@ -1,7 +1,7 @@
+ import { env } from "cloudflare:workers";
+ import { createContext } from "@2025-12-stack/api/context";
+ import { appRouter } from "@2025-12-stack/api/routers/index";
+-import { auth } from "@2025-12-stack/auth";
++import { createAuth } from "@2025-12-stack/auth";
+ import { OpenAPIHandler } from "@orpc/openapi/fetch";
+ import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
+ import { onError } from "@orpc/server";
+@@ -11,20 +11,48 @@ import { Hono } from "hono";
+ import { cors } from "hono/cors";
+ import { logger } from "hono/logger";
+ 
++const getBaseURL = (req: Request) => {
++	const url = new URL(req.url);
++	return url.origin;
++};
++
+ const app = new Hono();
+ 
++app.onError((err, c) => {
++	console.error("Unhandled error:", err);
++	return c.json({ error: "Internal Server Error" }, 500);
++});
++
+ app.use(logger());
+ app.use(
+ 	"/*",
+ 	cors({
+-		origin: env.CORS_ORIGIN || "",
++		origin: (origin) => {
++			if (!origin) return env.CORS_ORIGIN ?? "";
++			if (
++				origin &&
++				(origin.endsWith(".workers.dev") ||
++					origin.endsWith(".pages.dev") ||
++					origin.includes("localhost"))
++			) {
++				return origin;
++			}
++			return env.CORS_ORIGIN ?? "";
++		},
+ 		allowMethods: ["GET", "POST", "OPTIONS"],
+-		allowHeaders: ["Content-Type", "Authorization"],
++		allowHeaders: ["Content-Type", "Authorization", "User-Agent"],
+ 		credentials: true,
+ 	}),
+ );
+ 
+-app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
++app.on(["POST", "GET"], "/api/auth/*", async (c) => {
++	try {
++		const auth = createAuth(getBaseURL(c.req.raw));
++		return await auth.handler(c.req.raw);
++	} catch (error) {
++		throw error;
++	}
++});
+ 
+ export const apiHandler = new OpenAPIHandler(appRouter, {
+ 	plugins: [

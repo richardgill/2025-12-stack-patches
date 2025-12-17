@@ -3,6 +3,6 @@
   "source_repo": "./upstream",
   "clones_dir": "./clones/",
   "patches_dir": "./patches/",
-  "target_repo": "upstream-3",
+  "target_repo": "upstream-6",
   "ref": "main"
 }

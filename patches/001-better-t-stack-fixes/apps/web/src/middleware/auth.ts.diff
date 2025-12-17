@@ -1,0 +1,21 @@
+diff --git a/apps/web/src/middleware/auth.ts b/apps/web/src/middleware/auth.ts
+index aef1575..24101e7 100644
+--- a/apps/web/src/middleware/auth.ts
++++ b/apps/web/src/middleware/auth.ts
+@@ -3,9 +3,15 @@ import { authClient } from "@/lib/auth-client";
+ 
+ export const authMiddleware = createMiddleware().server(
+ 	async ({ next, request }) => {
++		const headers = new Headers();
++		const cookie = request.headers.get("cookie");
++		if (cookie) headers.set("cookie", cookie);
++		const authorization = request.headers.get("authorization");
++		if (authorization) headers.set("authorization", authorization);
++
+ 		const session = await authClient.getSession({
+ 			fetchOptions: {
+-				headers: request.headers,
++				headers,
+ 				throw: true,
+ 			},
+ 		});

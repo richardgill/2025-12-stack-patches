@@ -1,0 +1,13 @@
+diff --git a/apps/web/src/utils/orpc.ts b/apps/web/src/utils/orpc.ts
+index d720b38..305ca56 100644
+--- a/apps/web/src/utils/orpc.ts
++++ b/apps/web/src/utils/orpc.ts
+@@ -34,7 +34,7 @@ const getORPCClient = createIsomorphicFn()
+ 	)
+ 	.client((): RouterClient<typeof appRouter> => {
+ 		const link = new RPCLink({
+-			url: `${import.meta.env.VITE_SERVER_URL}/rpc`,
++			url: new URL("rpc", import.meta.env.VITE_SERVER_URL).href,
+ 			fetch(url, options) {
+ 				return fetch(url, {
+ 					...options,

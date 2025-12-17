@@ -1,0 +1,53 @@
+diff --git a/apps/web/src/lib/auth-client.ts b/apps/web/src/lib/auth-client.ts
+index 1878460..fb69fb7 100644
+--- a/apps/web/src/lib/auth-client.ts
++++ b/apps/web/src/lib/auth-client.ts
+@@ -1,8 +1,46 @@
+-import type { auth } from "@2025-12-stack/auth";
++import type { Auth } from "@2025-12-stack/auth";
+ import { inferAdditionalFields } from "better-auth/client/plugins";
+ import { createAuthClient } from "better-auth/react";
+ 
++type Fetcher = { fetch: typeof fetch };
++
++let apiBindingCache: Fetcher | null | undefined;
++
++const getApiBinding = async (): Promise<Fetcher | null> => {
++	if (apiBindingCache !== undefined) return apiBindingCache;
++	try {
++		// Use variable to prevent Vite from analyzing this import at build time
++		const cfWorkers = "cloudflare:workers";
++		const { env } = await import(/* @vite-ignore */ cfWorkers);
++		return env.API ?? null;
++	} catch (error) {
++		console.error("cloudflare:workers not available:", error);
++		apiBindingCache = null;
++		return null;
++	}
++};
++
+ export const authClient = createAuthClient({
+ 	baseURL: import.meta.env.VITE_SERVER_URL,
+-	plugins: [inferAdditionalFields<typeof auth>()],
++	plugins: [inferAdditionalFields<Auth>()],
++	fetchOptions: {
++		customFetchImpl: async (url, options) => {
++			const apiBinding = await getApiBinding();
++			if (apiBinding) {
++				return apiBinding.fetch(url, options);
++			}
++			console.log("[auth] fetching via public URL:", url);
++			const response = await fetch(url, options);
++			if (!response.ok) {
++				const text = await response.clone().text();
++				console.error("[auth] error:", {
++					url,
++					status: response.status,
++					statusText: response.statusText,
++					body: text,
++				});
++			}
++			return response;
++		},
++	},
+ });
