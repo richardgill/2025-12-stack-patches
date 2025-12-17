@@ -1,8 +1,8 @@
 {
-  "$schema": "https://unpkg.com/patchy-cli@0.0.6/schema.json",
-  "repo_url": "file:///home/rich/code/2025-12-stack-patches/upstream",
+  "$schema": "https://unpkg.com/patchy-cli@0.0.8/schema.json",
+  "source_repo": "./upstream",
   "clones_dir": "./clones/",
   "patches_dir": "./patches/",
-  "ref": "main",
-  "repo_dir": "upstream-2"
+  "target_repo": "upstream-3",
+  "ref": "main"
 }
