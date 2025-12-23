@@ -1,0 +1,24 @@
+pre-commit:
+  parallel: false
+  commands:
+    biome:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: pnpm exec biome check --write --error-on-warnings --diagnostic-level=warn --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
+    typecheck:
+      run: pnpm exec turbo typecheck --ui=stream --no-daemon
+    test:
+      run: pnpm exec turbo test --ui=stream --no-daemon
+
+pre-push:
+  commands:
+    no-push-to-main:
+      run: |
+        branch=$(git rev-parse --abbrev-ref HEAD)
+        if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+          echo "Direct push to $branch is not allowed. Use a PR instead."
+          exit 1
+        fi
+    biome:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: pnpm exec biome check --error-on-warnings --diagnostic-level=warn --no-errors-on-unmatched --files-ignore-unknown=true {push_files}

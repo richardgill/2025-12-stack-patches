@@ -1,0 +1,13 @@
+diff --git a/apps/web/package.json b/apps/web/package.json
+--- a/apps/web/package.json
++++ b/apps/web/package.json
+@@ -6,7 +6,8 @@
+ 	"scripts": {
+ 		"build": "vite build",
+ 		"test": "vitest run",
+ 		"serve": "vite preview",
+-		"dev": "vite dev --port=3001"
++		"dev": "vite dev --port=3001",
++		"typecheck": "tsc --noEmit"
+ 	},
+ 	"dependencies": {

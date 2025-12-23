@@ -1,0 +1,12 @@
+diff --git a/apps/server/package.json b/apps/server/package.json
+--- a/apps/server/package.json
++++ b/apps/server/package.json
+@@ -6,7 +6,7 @@
+ 	"scripts": {
+ 		"build": "tsdown",
+ 		"test": "vitest run",
+-		"check-types": "tsc -b",
++		"typecheck": "tsc --noEmit",
+ 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+ 		"dev": "alchemy dev",
+ 		"deploy": "alchemy deploy",
