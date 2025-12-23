@@ -1,0 +1,25 @@
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -8,15 +8,16 @@
+ 	],
+ 	"scripts": {
+ 		"test": "turbo test",
+-		"check": "biome check --write .",
++		"check": "biome check --error-on-warnings --diagnostic-level=warn",
++		"check-fix": "biome check --write --error-on-warnings --diagnostic-level=warn",
+ 		"dev": "alchemy dev",
+ 		"build": "turbo build",
+ 		"typecheck": "turbo typecheck",
+ 		"prepare": "lefthook install",
+-		"dev:native": "turbo -F native dev",
+-		"dev:web": "turbo -F web dev",
+-		"dev:server": "turbo -F server dev",
+-		"db:push": "turbo -F @2025-12-stack/db db:push",
++		"native:dev": "turbo -F native dev",
++		"web:dev": "turbo -F web dev",
++		"server:dev": "turbo -F server dev",
++		"db:push": "turbo -F @2025-12-stack/db push",
+ 		"db:studio": "turbo -F @2025-12-stack/db db:studio",
+ 		"db:generate": "turbo -F @2025-12-stack/db db:generate",
+ 		"db:migrate": "turbo -F @2025-12-stack/db db:migrate",

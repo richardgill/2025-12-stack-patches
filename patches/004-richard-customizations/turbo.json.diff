@@ -1,0 +1,41 @@
+diff --git a/turbo.json b/turbo.json
+index a72add7..f984c24 100644
+--- a/turbo.json
++++ b/turbo.json
+@@ -10,29 +10,29 @@
+ 		"lint": {
+ 			"dependsOn": ["^lint"]
+ 		},
+-		"test": {
+-			"dependsOn": ["^test"]
+-		},
+ 		"typecheck": {
+ 			"dependsOn": ["^typecheck"]
+ 		},
++		"test": {
++			"dependsOn": ["^test"]
++		},
+ 		"dev": {
+ 			"cache": false,
+ 			"persistent": true
+ 		},
+-		"db:push": {
++		"push": {
+ 			"cache": false,
+ 			"persistent": true
+ 		},
+-		"db:studio": {
++		"studio": {
+ 			"cache": false,
+ 			"persistent": true
+ 		},
+-		"db:migrate": {
++		"migrate": {
+ 			"cache": false,
+ 			"env": ["DATABASE_URL"]
+ 		},
+-		"db:generate": {
++		"generate": {
+ 			"cache": false,
+ 			"persistent": true
+ 		}
