@@ -1,0 +1,12 @@
+diff --git a/apps/server/package.json b/apps/server/package.json
+index f0a3a8f..3124c59 100644
+--- a/apps/server/package.json
++++ b/apps/server/package.json
+@@ -4,6 +4,7 @@
+ 	"type": "module",
+ 	"scripts": {
+ 		"build": "tsdown",
++		"test": "vitest run",
+ 		"check-types": "tsc -b",
+ 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+ 		"dev": "alchemy dev",

@@ -1,0 +1,14 @@
+diff --git a/turbo.json b/turbo.json
+index 6f7e461..f984c24 100644
+--- a/turbo.json
++++ b/turbo.json
+@@ -10,6 +10,9 @@
+ 		"lint": {
+ 			"dependsOn": ["^lint"]
+ 		},
++		"test": {
++			"dependsOn": ["^test"]
++		},
+ 		"check-types": {
+ 			"dependsOn": ["^check-types"]
+ 		},

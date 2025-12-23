@@ -1,0 +1,16 @@
+diff --git a/packages/api/package.json b/packages/api/package.json
+index ee1172c..14fe530 100644
+--- a/packages/api/package.json
++++ b/packages/api/package.json
+@@ -9,7 +9,10 @@
+ 		}
+ 	},
+ 	"type": "module",
+-	"scripts": {},
++	"scripts": {
++		"test": "vitest run",
++		"typecheck": "tsc --noEmit"
++	},
+ 	"devDependencies": {
+ 		"@2025-12-stack/config": "workspace:*"
+ 	},

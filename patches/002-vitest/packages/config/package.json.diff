@@ -1,0 +1,12 @@
+diff --git a/packages/config/package.json b/packages/config/package.json
+index ac8c0de..9ea1564 100644
+--- a/packages/config/package.json
++++ b/packages/config/package.json
+@@ -4,6 +4,7 @@
+ 	"private": true,
+ 	"type": "module",
+ 	"exports": {
++		"./vitest": "./vitest.config.ts",
+ 		"./tsconfig.base.json": "./tsconfig.base.json"
+ 	}
+ }

@@ -1,0 +1,12 @@
+diff --git a/packages/db/package.json b/packages/db/package.json
+index 905d450..bbd8437 100644
+--- a/packages/db/package.json
++++ b/packages/db/package.json
+@@ -10,6 +10,7 @@
+ 		}
+ 	},
+ 	"scripts": {
++		"test": "vitest run",
+ 		"db:push": "drizzle-kit push",
+ 		"db:studio": "drizzle-kit studio",
+ 		"db:generate": "drizzle-kit generate",

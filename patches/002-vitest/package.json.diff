@@ -1,0 +1,20 @@
+diff --git a/package.json b/package.json
+index ed9313e..738f866 100644
+--- a/package.json
++++ b/package.json
+@@ -7,6 +7,7 @@
+ 		"packages/*"
+ 	],
+ 	"scripts": {
++		"test": "turbo test",
+ 		"check": "biome check --write .",
+ 		"dev": "alchemy dev",
+ 		"build": "turbo build",
+@@ -25,6 +26,7 @@
+ 	"devDependencies": {
+ 		"turbo": "^2.5.4",
+ 		"@biomejs/biome": "^2.2.0",
++		"vitest": "^4.0.14",
+ 		"@types/node": "^22.13.11",
+ 		"alchemy": "^0.77.0",
+ 		"@cloudflare/workers-types": "^4.20250822.0"
