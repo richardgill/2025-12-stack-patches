@@ -1,8 +1,9 @@
 {
-  "$schema": "https://unpkg.com/patchy-cli@0.0.8/schema.json",
+  "$schema": "https://unpkg.com/patchy-cli@0.0.9/schema.json",
   "source_repo": "./upstream",
   "clones_dir": "./clones/",
   "patches_dir": "./patches/",
-  "target_repo": "upstream-6",
-  "ref": "main"
+  "base_revision": "ec26dd19f394754f02a7983ed643b9a9354ab3bc",
+  "upstream_branch": "main",
+  "target_repo": "upstream-9"
 }
