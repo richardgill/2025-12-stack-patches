@@ -18,5 +18,6 @@ pnpm create better-t-stack@3.6.5 2025-12-stack \
   --git \
   --install && \
 mv 2025-12-stack/ upstream/ && \
-(cd upstream && pnpm run db:generate && git commit -am "generate db migrations") && \
+(cd upstream/packages/db && pnpm exec drizzle-kit generate --name init) && \
+(cd upstream && git add . && git commit -m "generate db migrations") && \
 (cd upstream && pnpm run check && git commit -am "format files")
