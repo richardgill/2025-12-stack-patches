@@ -11,4 +11,3 @@ diff --git a/packages/db/package.json b/packages/db/package.json
 +		"db:migrate": "drizzle-kit migrate",
 +		"typecheck": "tsc --noEmit"
  	},
- 	"devDependencies": {

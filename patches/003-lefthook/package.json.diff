@@ -1,7 +1,7 @@
 diff --git a/package.json b/package.json
 --- a/package.json
 +++ b/package.json
-@@ -10,7 +10,8 @@
+@@ -11,7 +11,8 @@
  		"check": "biome check --write .",
  		"dev": "alchemy dev",
  		"build": "turbo build",
@@ -11,11 +11,12 @@ diff --git a/package.json b/package.json
  		"dev:native": "turbo -F native dev",
  		"dev:web": "turbo -F web dev",
  		"dev:server": "turbo -F server dev",
-@@ -26,6 +27,7 @@
- 	"devDependencies": {
- 		"turbo": "^2.5.4",
- 		"@biomejs/biome": "^2.2.0",
-+		"lefthook": "^2.0.4",
+@@ -28,6 +29,7 @@
  		"vitest": "^4.0.14",
  		"@types/node": "^22.13.11",
  		"alchemy": "^0.77.0",
+-		"@cloudflare/workers-types": "^4.20250822.0"
++		"@cloudflare/workers-types": "^4.20250822.0",
++		"lefthook": "^2.0.4"
+ 	},
+ 	"packageManager": "pnpm@10.24.0"

@@ -1,19 +1,14 @@
 diff --git a/turbo.json b/turbo.json
 --- a/turbo.json
 +++ b/turbo.json
-@@ -10,11 +10,11 @@
- 		"lint": {
- 			"dependsOn": ["^lint"]
- 		},
-+		"typecheck": {
-+			"dependsOn": ["^typecheck"]
-+		},
+@@ -13,8 +13,8 @@
  		"test": {
  			"dependsOn": ["^test"]
  		},
 -		"check-types": {
 -			"dependsOn": ["^check-types"]
--		},
++		"typecheck": {
++			"dependsOn": ["^typecheck"]
+ 		},
  		"dev": {
  			"cache": false,
- 			"persistent": true
