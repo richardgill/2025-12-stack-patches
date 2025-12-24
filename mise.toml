@@ -1,2 +1,2 @@
 [tools]
-"npm:patchy-cli" = "latest"
+"npm:patchy-cli" = "0.0.16"
