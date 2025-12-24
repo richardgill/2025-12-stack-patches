@@ -1,0 +1,19 @@
+diff --git a/alchemy.run.ts b/alchemy.run.ts
+--- a/alchemy.run.ts
++++ b/alchemy.run.ts
+@@ -68,6 +68,7 @@ if (process.env.PULL_REQUEST) {
+ 	const [owner = "", repository = ""] = (
+ 		process.env.GITHUB_REPOSITORY ?? ""
+ 	).split("/");
++	const neonBranchId = process.env.NEON_BRANCH_ID;
+ 	await GitHubComment("preview-comment", {
+ 		owner,
+ 		repository,
+@@ -79,6 +80,7 @@ if (process.env.PULL_REQUEST) {
+ |---------|-----|
+ | Web | ${web.url} |
+ | Server | ${server.url} |
++${neonBranchId ? `| Database | Neon branch: \`${neonBranchId}\` |` : ""}
+
+ Built from commit ${process.env.GITHUB_SHA?.slice(0, 7)}
+

@@ -1,0 +1,49 @@
+diff --git a/.github/workflows/deploy-preview.yml b/.github/workflows/deploy-preview.yml
+--- a/.github/workflows/deploy-preview.yml
++++ b/.github/workflows/deploy-preview.yml
+@@ -20,7 +20,6 @@ jobs:
+     env:
+       PULL_REQUEST: ${{ github.event.number }}
+       GITHUB_SHA: ${{ github.sha }}
+-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
+       ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
+@@ -31,6 +30,37 @@ jobs:
+       CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+       VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
+     steps:
++      - name: Get branch name
++        id: branch_name
++        uses: tj-actions/branch-names@v8
++
++      - name: Get branch expiration date (2 weeks from now)
++        run: echo "EXPIRES_AT=$(date -u --date '+14 days' +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
++
++      - name: Create Neon Branch
++        id: create_neon_branch
++        continue-on-error: true
++        uses: neondatabase/create-branch-action@v6
++        with:
++          project_id: ${{ vars.NEON_PROJECT_ID }}
++          branch_name: preview/pr-${{ github.event.number }}-${{ steps.branch_name.outputs.current_branch }}
++          api_key: ${{ secrets.NEON_API_KEY }}
++          expires_at: ${{ env.EXPIRES_AT }}
++
++      - name: Reset Neon Branch to parent
++        id: reset_neon_branch
++        uses: neondatabase/reset-branch-action@v1
++        with:
++          project_id: ${{ vars.NEON_PROJECT_ID }}
++          branch: preview/pr-${{ github.event.number }}-${{ steps.branch_name.outputs.current_branch }}
++          parent: true
++          api_key: ${{ secrets.NEON_API_KEY }}
++
++      - name: Set DATABASE_URL
++        run: |
++          echo "DATABASE_URL=${{ steps.reset_neon_branch.outputs.db_url_with_pooler }}" >> "$GITHUB_ENV"
++          echo "NEON_BRANCH_ID=${{ steps.reset_neon_branch.outputs.branch_id }}" >> "$GITHUB_ENV"
++
+       - name: Checkout
+         uses: actions/checkout@v4
+
