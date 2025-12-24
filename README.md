@@ -13,4 +13,5 @@ Install [mise](https://mise.jdx.dev/) and run `mise install`
 ## Usage
 
 1. Scaffold base project: `./better-tstack-create.sh`
-2. Apply patches: `LEFTHOOK=0 patchy apply --all`
+2. Create a clone: `patchy clone`
+3. Apply patches on top: `LEFTHOOK=0 patchy apply --all`
