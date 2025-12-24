@@ -1,6 +1,10 @@
 # 2025-12-stack-patches
 
-Patches on top of better-t-stack: TanStack Start, Hono, tRPC, Drizzle, Tailwind.
+Starts with better-t-stack: TanStack Start, Hono, oRPC, Neon, Drizzle, Tailwind.
+
+Then adds: 
+
+- better-t-stack fixes
 
 ## Setup
 
