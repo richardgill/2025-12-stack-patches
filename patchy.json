@@ -1,5 +1,5 @@
 {
-  "$schema": "https://unpkg.com/patchy-cli@0.0.9/schema.json",
+  "$schema": "https://unpkg.com/patchy-cli@0.0.11/schema.json",
   "source_repo": "./upstream",
   "clones_dir": "./clones/",
   "patches_dir": "./patches/",

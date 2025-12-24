@@ -1,7 +1,12 @@
 # 2025-12-stack-patches
 
-Patches for [better-t-stack-nov-28-2](../better-t-stack-nov-28-2/).
+Patches on top of better-t-stack: TanStack Start, Hono, tRPC, Drizzle, Tailwind.
 
-## Scaffolding Command
+## Setup
 
-Scaffold base project with: `./better-tstack-create.sh`
+Install [mise](https://mise.jdx.dev/) and run `mise install`
+
+## Usage
+
+1. Scaffold base project: `./better-tstack-create.sh`
+2. Apply patches: `patchy apply --mode=commit`
