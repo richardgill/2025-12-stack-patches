@@ -1,7 +1,7 @@
 diff --git a/alchemy.run.ts b/alchemy.run.ts
 --- a/alchemy.run.ts
 +++ b/alchemy.run.ts
-@@ -68,6 +68,7 @@ if (process.env.PULL_REQUEST) {
+@@ -67,6 +67,7 @@
  	const [owner = "", repository = ""] = (
  		process.env.GITHUB_REPOSITORY ?? ""
  	).split("/");
@@ -9,7 +9,7 @@ diff --git a/alchemy.run.ts b/alchemy.run.ts
  	await GitHubComment("preview-comment", {
  		owner,
  		repository,
-@@ -79,6 +80,7 @@ if (process.env.PULL_REQUEST) {
+@@ -79,6 +80,7 @@
  |---------|-----|
  | Web | ${web.url} |
  | Server | ${server.url} |

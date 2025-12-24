@@ -1,5 +1,7 @@
 # Patchy Workflow
 
+For full patchy CLI documentation, see: https://github.com/richardgill/patchy/blob/main/README.md
+
 This repo maintains patches on top of an upstream template. Patches in `patches/` are numbered directories applied in order.
 
 ## Patch File Types
